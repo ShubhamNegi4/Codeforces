@@ -1,0 +1,14 @@
+    auto __solve_tc = [&](auto __tc_num)->void{
+        int n;
+        cin>>n;
+        int cnt= 0;
+        for(int i =0; i<60; i++){		//->for 64 bits as ignoring sign bit here
+            if(n & (1ll<<i)){			//-> it check if the current bit is set
+                cnt+= (1ll<<(i+1))-1;		// -> here (1ll<<(i+1))-1  is pow(2,i+1)-1 . it calculate the diff of bits from 2's power
+            }
+        }
+        cout<<cnt<<endl;
+    };
+    
+    
+    
