@@ -1,0 +1,16 @@
+    auto __solve_tc = [&](auto __tc_num)->void{
+        int n , k;
+        cin>>n>>k;
+        int ans = 0;
+        int low = 1, high = 2*k;			//-> max element can go till 2*k
+        while(low <= high){
+            int mid = low+(high - low)/2;
+            if(mid- mid/n >=k){		// ->This condition seems to be checking whether mid minus the count of numbers divisible by n up to mid is greater than or equal to k.
+                ans = mid;
+                high = mid-1;
+            }
+            else
+                low = mid+1;
+        }
+        cout<<ans<<endl;
+    };
