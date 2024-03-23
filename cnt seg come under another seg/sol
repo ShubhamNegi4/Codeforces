@@ -1,0 +1,55 @@
+#include <iostream>
+#include <vector>
+using ll = long long;
+#include <algorithm>
+#include <ext/pb_ds/assoc_container.hpp> 
+#include <ext/pb_ds/tree_policy.hpp> 
+
+using namespace std;
+using namespace __gnu_pbds;
+
+#define ordered_set tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> 
+
+ordered_set st;
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+
+    int __tc_cnt;
+    cin >> __tc_cnt;
+
+    for(int __tc_num = 0; __tc_num < __tc_cnt; ++__tc_num){
+        int n;
+        cin >> n;
+        vector<pair<int, int>> v;
+        
+        for(int i = 0; i < n; ++i) {
+            int a, b;
+            cin >> a >> b;
+            v.push_back({b, a});
+        }
+        
+        sort(v.begin(), v.end());		//-> sort the pair on the basis of end position
+        
+        ll cnt = 0;
+        for(auto &it : v){
+            cnt += st.size() - st.order_of_key(it.second);
+            st.insert(it.second);
+        }
+        
+        cout << cnt << endl;
+        st.clear(); // Clear the ordered_set for the next test case
+    }
+
+    return 0;
+}
+/*
+We can treat a person traveling from point a to point b as a segment [a,b]. Notice that they meet when a1<a2 and b2<b1, or a2<a1 and b1<b2; or in other words, when one segment contains another.
+We can count the number of pairs when one fully contains another, which is a quite classic problem, and can be solved by iterating over the segments in increasing order of the b position and for each of them adding the number of segments that we have already passed that have an a value larger than the one of the current segment.
+
+The time complexity is O(nlogn)
+.
+*/
+
